@@ -13,3 +13,5 @@ Technologies Used:
 SQL for data inspection, querying, and filtering.
 Power BI for data visualization, dashboard creation, and report generation.
 Impact: Empowered decision-makers with real-time sales analytics, leading to improved sales strategies, customer targeting, and revenue growth for the company.
+![image](https://github.com/akshat598/Power-BI-Project/assets/97584314/9ca4b611-fbf0-42a5-aeb8-a1ad01746c98)
+
