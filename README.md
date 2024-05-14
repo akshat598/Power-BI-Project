@@ -1,7 +1,4 @@
 #  Project : Sales Insights of Data Analysis-AtliQ Hardware
-
-![Sales insights AtliQ](https://user-images.githubusercontent.com/118357991/230730818-34393de8-2b5c-46da-83f1-be293b0107b4.png)
-
 ## Table of Contents:
 
 - [Problem Statement](https://github.com/yogeshkasar778/Sales_insights_of_data_analysis-AtliQ_Hardware/edit/main/README.md#problem-statement-)
