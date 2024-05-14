@@ -1,7 +1,6 @@
-Project Title: Sales Analysis for Furniture Company
+# Project Title: Sales Analysis for Furniture Company
 
-
-Description: Developed a comprehensive sales analysis system for a furniture company utilizing SQL and Power BI, enabling data inspection, filtering, and visualization for informed decision-making.
+## Description: Developed a comprehensive sales analysis system for a furniture company utilizing SQL and Power BI, enabling data inspection, filtering, and visualization for informed decision-making.
 
 Key Achievements:
 
