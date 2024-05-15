@@ -46,8 +46,10 @@ Byte force hardware has been witnessing declining profits over the years,this pr
 
 ## Data CLeaning using MySQL :
 sql query for customer table 
+```sql
  > select * from customers where customer_code IS NULL;
  > select * from customers;
+```
 no null values in the customer table
 
 sql query for date table
