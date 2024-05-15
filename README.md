@@ -1,14 +1,14 @@
 #  Project : Sales Insights of Data Analysis-Byteforce Hardware
 ## Table of Contents:
 
-- [Problem Statement](https://github.com/akshat598/Power-BI-Project?tab=readme-ov-file#data-cleaning-using-mysql-)
-- [Data Discovery]
-- [Data Cleaning using MySQL ]
-- [Data Analysis using MySQL]
-- [Data Modeling]
-- [Data Analysis (DAX)]
-- [Report]
-- [Tools, Software and Libraries]
+- Problem Statement
+- Data Discovery
+- Data Cleaning using MySQL 
+- Data Analysis using MySQL
+- Data Modeling
+- Data Analysis (DAX)
+- Report
+- Tools, Software and Libraries
 
 
 
