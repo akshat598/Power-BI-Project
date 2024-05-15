@@ -4,10 +4,10 @@
 - [Problem Statement]
 - [Data Discovery]
 - [Data Cleaning using MySQL ]
-- [Data Cleaning and ETL (Extract, Transform, Load)]
+- [Data Analysis using MySQL]
 - [Data Modeling]
 - [Data Analysis (DAX)]
-- [Build Dashboard Or a Report]
+- [Report]
 - [Tools, Software and Libraries]
 
 
@@ -47,50 +47,152 @@ Byte force hardware has been witnessing declining profits over the years,this pr
 ## Data CLeaning using MySQL :
 sql query for customer table 
 ```sql
- > select * from customers where customer_code IS NULL;
- > select * from customers;
+select * from customers where customer_code IS NULL;
+select * from customers;
 ```
 no null values in the customer table
 
 sql query for date table
- > select * from date where date IS NULL;
+```sql
+select * from date where date IS NULL;
+```
 no null value is in this table
- > select * from date;
+```sql
+select * from date;
+```
 
 sql query for markets table
- > select * from markets;
+```sql
+select * from markets;
+```
 zone is not mentioned for two entries Mark097 and Mark999
- > UPDATE markets SET zone = 'usa' WHERE markets_code = 'Mark097';
- > UPDATE markets SET zone = 'france' WHERE markets_code = 'Mark999';
+```sql
+UPDATE markets SET zone = 'usa' WHERE markets_code = 'Mark097';
+UPDATE markets SET zone = 'france' WHERE markets_code = 'Mark999';
+```
+
 
 sql query for products table
- > select * from products;
- > select * from products where product_code IS NULL;
+```sql
+select * from products;
+select * from products where product_code IS NULL;
+```
 no null values in the customer table
 
 sql query for transactions table
- > select * from transactions where sales_amount <= 0;
- > select count(*) from transactions  where sales_amount <= 0; /* there are 1611 such entries */
+```sql
+select * from transactions where sales_amount <= 0;
+select count(*) from transactions  where sales_amount <= 0; /* there are 1611 such entries */
+```
 we will delete them
- > delete from transactions where sales_amount <= 0;
- > select count(*) from transactions  where sales_qty <= 0; /* there are no such entries */
+```sql
+delete from transactions where sales_amount <= 0;
+select count(*) from transactions  where sales_qty <= 0; /* there are no such entries */
+```
 
 data filtring
- > select count(*) from transactions  where sales_qty <= 0; /* there are no such entries */
- > select count(*) from transactions where currency = 'INR\r';/* amount is 148393 */
- > select count(*) from transactions where currency = 'INR';     /* amount is 275,we will ignore this value this is duplicate */
- > delete from transactions where currency = 'INR';
- > select count(*) from transactions where currency = 'USD\r'; /* amount is 2 */
- > select count(*) from transactions where currency = 'USD'; /* amount is 2 */
- > delete from transactions where currency  = 'USD';
+```sql
+select count(*) from transactions  where sales_qty <= 0; /* there are no such entries */
+select count(*) from transactions where currency = 'INR\r';/* amount is 148393 */
+select count(*) from transactions where currency = 'INR';     /* amount is 275,we will ignore this value this is duplicate */
+delete from transactions where currency = 'INR';
+select count(*) from transactions where currency = 'USD\r'; /* amount is 2 */
+select count(*) from transactions where currency = 'USD'; /* amount is 2 */
+delete from transactions where currency  = 'USD';
+```
 we will take INR\r and USD\r
 
+## Data analysis using mysql
+```sql
+/*Show all date records*/
+SELECT * FROM sales.date;
 
+/*Show transactions in 2020 join by date table*/
+SELECT sales.transactions.*, sales.date.* FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date where sales.date.year=2020;
+
+/*Show transactions in 2019 join by date table*/
+SELECT sales.transactions.*, sales.date.* FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date where sales.date.year=2019;
+
+/*Show total revenue in year 2020,*/
+SELECT SUM(sales.transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2020 and sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r';
+
+/*Show total revenue in year 2019,*/
+SELECT SUM(sales.transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2019 and sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r';
+
+/*Show  avarage in year 2020,*/
+SELECT AVG(sales.transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2020 and sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r';
+
+/*Show  avarage in year 2019,*/
+SELECT AVG(sales.transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2019 and sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r';
+
+/*Show  max sales amount in year 2019,*/
+SELECT MAX(sales.transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2019 and sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r';
+
+/*Show total revenue in year 2020, January Month,*/
+SELECT SUM(transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2020 and sales.date.month_name='January' 
+and (sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r');
+
+/*Show total revenue in year 2020, February Month,*/
+SELECT SUM(transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2020 and sales.date.month_name='February' 
+and (sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r');
+
+/*Show total revenue in year 2019, January Month,*/
+SELECT SUM(transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2019 and sales.date.month_name='January' 
+and (sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r');
+
+/*Show total revenue in year 2019, February Month,*/
+SELECT SUM(transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2019 and sales.date.month_name='February' 
+and (sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r');
+
+/*Show total revenue in year 2020 in Chennai*/
+SELECT SUM(sales.transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2020 and sales.transactions.market_code="Mark001";
+
+/*Show total revenue in year 2020 in Mumbai*/
+SELECT SUM(sales.transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2020 and sales.transactions.market_code="Mark002";
+
+/*show the distinct product channai*/
+SELECT distinct product_code from sales.transactions where market_code='Mark001';
+
+/*show the distinct product Mumbai*/
+SELECT distinct product_code from sales.transactions where market_code='Mark002';
+
+/*Show total revenue in year 2020, January Month, in channai*/
+SELECT SUM(transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2020 and sales.date.month_name='January' 
+and (sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r') and sales.transactions.market_code="Mark001";
+
+/*Show total revenue in year 2020, February Month, channai*/
+SELECT SUM(transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2020 and sales.date.month_name='February' 
+and (sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r') and sales.transactions.market_code="Mark001";
+
+/*Show total revenue in year 2020, January Month, in mumbai*/
+SELECT SUM(transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2020 and sales.date.month_name='January' 
+and (sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r') and sales.transactions.market_code="Mark002";
+
+/*Show total revenue in year 2020, February Month, mumbai*/
+SELECT SUM(transactions.sales_amount) FROM sales.transactions INNER JOIN sales.date ON sales.transactions.order_date=sales.date.date 
+where sales.date.year=2020 and sales.date.month_name='February' 
+and (sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r') and sales.transactions.market_code="Mark002";
+```
 ## Data Modeling:
 
 The sales insights data tables as show below:
 
-![Screenshot (14)](https://user-images.githubusercontent.com/118357991/234016242-369bd02e-1ddf-4047-9be4-324c83bd8761.png)
+![Screenshot (14)](![image](https://github.com/akshat598/Power-BI-Project/assets/97584314/f4e2cb62-e357-4632-bbe0-ea633a30785e)
+)
 
 ## Data Analysis  (DAX):
 
@@ -112,24 +214,15 @@ Profit Target:
   - Profit Target Value = `SELECTEDVALUE('Profit Target1'[Profit Target])`
   - Target Diff = `[Profit Margin %]-'Profit Target1'[Profit Target Value]`
   
-## Build Dashboard Or a Report:
+## Report:
 
 Data visualization for the data analysis (DAX) was done in Microsoft Power BI Desktop:
 
 Shows visualizations from Sales insights :
 
-| Key Insights |
 | ----------- |
-|![Sales Insights data analysis-AtliQ_page-0001](https://user-images.githubusercontent.com/118357991/234025264-f5f1d7af-2ead-4d9a-b8ae-7524d200b7dd.jpg)|
-
-
-| Profit Analysis |
-| ----------- |
-|![Sales Insights data analysis-AtliQ_page-0002](https://user-images.githubusercontent.com/118357991/234025629-3c2e3dcf-77fb-4c20-acdb-3f92604d1292.jpg)|
-
-| Profit Analysis |
-| ----------- |
-|![Sales Insights data analysis-AtliQ_page-0003](https://user-images.githubusercontent.com/118357991/234025913-3a09f076-e1c7-40a1-9983-d2c8767f252c.jpg)|
+|![![report_screenshot](https://github.com/akshat598/Power-BI-Project/assets/97584314/32ae27dd-5ca4-46dd-a1c1-9c6617ce63c6)
+)|
 
 ## Tools, Software and Libraries :
 
@@ -140,12 +233,5 @@ Shows visualizations from Sales insights :
 3.Power Query Editor
 
 3.DAX Language 
-
-## References :
-https://codebasics.io/panel/webinars/purchases
-
-https://www.sqlbi.com/learn/introducing-dax-video-course/0/
-
-https://dev.mysql.com/doc/
 
 ---
