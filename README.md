@@ -191,8 +191,8 @@ and (sales.transactions.currency='INR\r' or sales.transactions.currency='USD\r')
 
 The sales insights data tables as show below:
 
-![Screenshot (14)](![data_model](https://github.com/akshat598/Power-BI-Project/assets/97584314/c6a72032-cf4f-4480-9ccf-5dc6aca78a6c)
-)
+![data_model](https://github.com/akshat598/Power-BI-Project/assets/97584314/4cea268f-1e42-4a42-9b28-cbca2768a8c2)
+
 
 ## Data Analysis  (DAX):
 
@@ -218,8 +218,7 @@ Profit Target:
 
 Data visualization for the data analysis (DAX) was done in Microsoft Power BI Desktop:
 
-|![![report_screenshot](https://github.com/akshat598/Power-BI-Project/assets/97584314/32ae27dd-5ca4-46dd-a1c1-9c6617ce63c6)
-)|
+![report_screenshot](https://github.com/akshat598/Power-BI-Project/assets/97584314/58b94ca4-e4ad-4816-80c2-90a97d713191)
 
 ## Tools, Software and Libraries :
 
